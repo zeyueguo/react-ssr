@@ -30,36 +30,33 @@ app.prepare()
     .then(() => {
         const server = express()
         const staticDir = path.resolve(__dirname, '.next/static')
-
-        server.use(compression()) //gzip
-
+        // 设置gzip
+        server.use(compression())
+        // 设置静态目录
         server.use('/_next/static', express.static(staticDir))
-
+        // express设置/根目录的响应
         server.get('/', (req, res) => {
+            // 请求/list接口获取图片列表
             axios({
                 url: 'http://127.0.0.1:3000/list',
                 headers: headers(),
                 timeout: 8000
             }).then((response) => {
-                // logger.info(`Response axios, ${JSON.stringify(response.data)}`)
-                // console.log(response);
                 if (response.data) {
                     const queryParams = { data: response.data }
-                    //renderAndCache使用缓存
+                    // 1.使用缓存 renderAndCache
                     return renderAndCache(req, res, '/', queryParams)
-                    //  app.render(req, res, '/', queryParams)  //不使用缓存
+                    // 2. 不使用缓存 app.render(req, res, '/', queryParams)
                 }
                 else {
                     return app.render(req, res, '/_error', req.query)
                 }
             }).catch(function (error) {
                 console.log(error);
-                // logger.info(`Catch error axios, ${JSON.stringify(error)}`)
-
                 return app.render(error, req, res, '/_error', req.query)
             });
         })
-
+        // express设置/list接口的响应
         server.get('/list', (req, res) => {
             res.setHeader('content-type', 'application/json');
             return res.json([
@@ -89,17 +86,13 @@ app.prepare()
     })
 
 
-function getCacheKey(req) {
-    return `${req.url}`
-}
-
 function renderHtml(req, res, pagePath, queryParams, key) {
     // 无缓存，重新渲染
     app.renderToHTML(req, res, pagePath, queryParams)
         .then((html) => {
             // 缓存页面
             console.log(`CACHE MISS: ${key}`)
-            console.log(queryParams.data);
+            // console.log(queryParams.data);
             ssrCache.set(key, {
                 data: queryParams.data,
                 html
@@ -111,12 +104,13 @@ function renderHtml(req, res, pagePath, queryParams, key) {
         })
 }
 function renderAndCache(req, res, pagePath, queryParams) {
-    const key = getCacheKey(req)
-    // 存在缓存
+    const key = `${req.url}`
+    // 如果访问域名在缓存中存在则使用缓存，没有则生成一个
     if (ssrCache.has(key)) {
         console.log(`CACHE HIT: ${key}`)
-        console.log(queryParams.data);
+        // console.log(queryParams.data);
         const cachedata = ssrCache.get(key);
+        // 执行深比较来决定两者的值是否相等
         if (_.isEqual(cachedata.data, queryParams.data)) {
             res.send(ssrCache.get(key).html)
         }

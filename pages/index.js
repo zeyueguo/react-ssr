@@ -191,7 +191,9 @@ export default class PicDetailsDemo extends React.Component {
   constructor(props) {
     super(props);
   }
-
+  
+  //当加载页面获取数据的时候，我们使用了一个异步(async)的静态方法 getInitialProps。
+  //此静态方法能够获取所有的数据，并将其解析成一个 JavaScript对象，然后将其作为属性附加到 props对象上。
   static async getInitialProps({ query, err, req, res }) {
     let dataArray = query.data.map(item => ({ ...item, ...textData }));
     return {
