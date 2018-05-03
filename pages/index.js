@@ -38,18 +38,18 @@ class List extends React.Component {
     };
   }
 
-  onImgClick = (e, i) => {
-    const { picOpen } = this.state;
-    Object.keys(picOpen).forEach(key => {
-      if (key !== i && picOpen[key]) {
-        picOpen[key] = false;
-      }
-    });
-    picOpen[i] = true;
-    this.setState({
-      picOpen
-    });
-  };
+  // onImgClick = (e, i) => {
+  //   const { picOpen } = this.state;
+  //   Object.keys(picOpen).forEach(key => {
+  //     if (key !== i && picOpen[key]) {
+  //       picOpen[key] = false;
+  //     }
+  //   });
+  //   picOpen[i] = true;
+  //   this.setState({
+  //     picOpen
+  //   });
+  // };
 
   onClose = (e, i) => {
     const { picOpen } = this.state;
@@ -130,7 +130,7 @@ class List extends React.Component {
         >
           <TweenOne
             component="a"
-            onClick={e => this.onImgClick(e, i)}
+            // onClick={e => this.onImgClick(e, i)}
             style={{
               left: imgLeft,
               top: imgTop
