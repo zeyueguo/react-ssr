@@ -45,20 +45,21 @@ app.prepare()
                 // console.log(response);
                 if (response.data) {
                     const queryParams = { data: response.data }
-                    app.render(req, res, '/', queryParams)
+                    // return renderAndCache(req, res, '/', queryParams)
+                         app.render(req, res, '/', queryParams)
                 }
-                else {
+                else{
                     return app.render(req, res, '/_error', req.query)
                 }
             }).catch(function (error) {
                 console.log(error);
                 // logger.info(`Catch error axios, ${JSON.stringify(error)}`)
-
-                return app.render(error, req, res, '/_error', req.query)
+                
+                return app.render(error,req, res, '/_error', req.query)
             });
         })
 
-        server.get('/list', (req, res) => {
+        server.get('/list', (req, res)=>{
             res.setHeader('content-type', 'application/json');
             return res.json([
                 { image: "https://zos.alipayobjects.com/rmsportal/DGOtoWASeguMJgV.png" },
@@ -73,7 +74,7 @@ app.prepare()
                 { image: "https://zos.alipayobjects.com/rmsportal/dvQuFtUoRmvWLsZ.png" },
                 { image: "https://zos.alipayobjects.com/rmsportal/QqWQKvgLSJaYbpr.png" },
                 { image: "https://zos.alipayobjects.com/rmsportal/pTfNdthdsUpLPLJ.png" }
-            ]);
+              ]);
         })
 
         server.get('*', (req, res) => {
