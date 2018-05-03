@@ -87,4 +87,5 @@ getInitialProps()能够在服务端的运行，也能够在客户端运行。
 ## 参考
 
 [react-next](https://github.com/hyy1115/react-next)
+
 [Next.js中文文档](https://github.com/accforgit/DayLearnNote/blob/master/translation/Next.js-README.md)
