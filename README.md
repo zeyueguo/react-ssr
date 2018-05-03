@@ -43,12 +43,12 @@ npm start //最后运行
 
 ## 3. app.js 程序入口说明
 
-1. 配置next.js和express
+1. 配置next.js和express
 2. express设置/根目录的响应
 3. express设置/list接口的响应
 4. 如果访问域名在缓存中存在则使用缓存，没有则生成一个
 
-PS：更详细参照源码的app.js注释说明
+PS：更详细参照源码的app.js注释说明
 
 > 目前域名路径为key, 如访问域名127.0.0.1:3000，则key为`/`
 
