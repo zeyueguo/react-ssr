@@ -43,14 +43,14 @@ npm start //最后运行
 
 ## 3. app.js 程序入口说明
 
-1. 配置next.js和express
+1. 配置next.js和express
 2. express设置/根目录的响应
 3. express设置/list接口的响应
 4. 如果访问域名在缓存中存在则使用缓存，没有则生成一个
 
-PS：更详细参照源码的app.js注释说明
+PS：更详细参照源码的app.js注释说明
 
-> 目前域名路径为key, 如访问域名127.0.0.1:3000，则key为`/`
+> 缓存规则：域名路径为key，如访问域名127.0.0.1:3000，则key为`/`
 
 ## 4. pages/index.js React组件说明
 
@@ -82,7 +82,6 @@ getInitialProps()能够在服务端的运行，也能够在客户端运行。
 客户端的收到了HTML源码，有了数据，想做什么都可以。比如可以拿着window.__NEXT_DATA__.props的数据来初始化React组件的props属性。具体过程如下：当页面是用户通过超链接跳转过去，而不是用户输入网址或刷新来访问的，这时候是纯客户端的行为，没有HTTP请求发出去。用户如果通过超链接跳转回这个页面，客户端的getInitialProps()开始起作用了，它会自动读取HTML源码里 window.__NEXT_DATA__.props里的数据并作为React组件的props。
 
 [next.js的基本原理出处](https://www.zhihu.com/question/54877807/answer/269123325)
-
 
 ## 参考
 
